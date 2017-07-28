@@ -3,9 +3,11 @@ import { LoginPage } from './login';
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from "ionic-angular";
 
+
+
 @NgModule({
   imports: [IonicPageModule.forChild(LoginPage),
-  ComponentsModule ],
+  ComponentsModule,],
   exports: [],
   declarations: [LoginPage],
   providers: [],
