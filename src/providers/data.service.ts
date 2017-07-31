@@ -4,7 +4,7 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { AngularFireDatabase, FirebaseObjectObservable} from 'angularfire2/database';
 import {User} from 'firebase/app'; 
-
+import "rxjs/add/operator/take";
 
 /*
   Generated class for the DataProvider provider.
@@ -20,8 +20,15 @@ export class DataService {
   constructor(private database: AngularFireDatabase) {
   }
 
-  async saveProfile(user: User, profile: Profile){
+  getProfile(user: User){
     this.profileObject = this.database.object(`/profiles/${user.uid}`);
+
+    return this.profileObject.take(1); //ends stream and just get one
+  }
+
+  async saveProfile(user: User, profile: Profile){
+    this.profileObject = this.database.object(`/profiles/${user.uid}`,
+     {preserveSnapshot : true});
     try {
       await this.profileObject.set(profile);
       return true;

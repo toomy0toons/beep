@@ -12,6 +12,7 @@ import { AngularFireModule} from 'angularfire2';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { FormsModule } from "@angular/forms/forms";
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { HomePage } from '../pages/home/home';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireAuthModule,

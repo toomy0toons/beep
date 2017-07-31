@@ -1,3 +1,6 @@
+import { EditProfilePage } from './../edit-profile/edit-profile';
+import { User } from 'firebase/app';
+import { DataService } from './../../providers/data.service';
 import { ToastController } from 'ionic-angular';
 import { LoginResponse } from './../../models/login/login-response.interface';
 import { TabsPage } from './../tabs/tabs';
@@ -12,7 +15,7 @@ import { IonicPage,NavController, NavParams } from 'ionic-angular';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(private data: DataService, public navCtrl: NavController, public navParams: NavParams,
   private toast: ToastController) {
   }
 
@@ -27,7 +30,11 @@ export class LoginPage {
         message: `welcome, ${event.result.email}`,
         duration: 3000
       }).present();
-      this.navCtrl.setRoot('EditProfilePage');
+
+      this.data.getProfile(<User>event.result).subscribe(profile => {
+        console.log(profile);
+        profile ? this.navCtrl.setRoot('TabsPage') : this.navCtrl.setRoot('EditProfilePage'); 
+      })
     }
     else{
         this.toast.create({

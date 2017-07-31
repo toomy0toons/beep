@@ -22,6 +22,10 @@ export class EditProfilePage {
     console.log('ionViewDidLoad EditProfilePage');
   }
 
+  saveProfileResult(event: Boolean){
+    event ? this.navCtrl.setRoot('TabsPage') : console.log("Not Authenticated");
+  }
+
   
 
 }
