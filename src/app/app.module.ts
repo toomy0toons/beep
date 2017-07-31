@@ -1,4 +1,6 @@
+import { DataService } from './../providers/data.service';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule} from 'angularfire2/database';
 import { AuthService } from './../providers/auth.service';
 import { FIREBASE_CONFIG } from './app.config';
 import { BrowserModule } from '@angular/platform-browser';
@@ -21,7 +23,8 @@ import { HomePage } from '../pages/home/home';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
-    AngularFireAuthModule 
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -32,7 +35,8 @@ import { HomePage } from '../pages/home/home';
     StatusBar,
     AuthService,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    DataService
   ]
 })
 export class AppModule {}
