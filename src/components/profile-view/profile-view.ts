@@ -39,12 +39,11 @@ export class ProfileViewComponent {
 
   ngOnInit():void{
     this.loader.present();
-    this.auth.getAuthenticatedUser().subscribe((user: User)=> {
-      this.data.getProfile(user).subscribe((profile: Profile)=> {
-        this.userProfile = profile;
-        this.existingProfile.emit(this.userProfile);
-        this.loader.dismiss();
-      })
+
+    this.data.getAuthenticatedUserProfile().subscribe(profile=>{
+      this.userProfile = profile;
+      this.existingProfile.emit(this.userProfile);
+      this.loader.dismiss();
     })
   }
 

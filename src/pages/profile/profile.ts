@@ -1,3 +1,4 @@
+import { AuthService } from './../../providers/auth.service';
 import { EditProfilePage } from './../edit-profile/edit-profile';
 import { Profile } from './../../models/profile/profile';
 import { Component } from '@angular/core';
@@ -18,7 +19,9 @@ export class ProfilePage {
 
   existingProfile = {} as Profile;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+  public navParams: NavParams,
+  private auth: AuthService) {
   }
 
   getExistingProfile(profile: Profile){
@@ -29,4 +32,8 @@ export class ProfilePage {
     this.navCtrl.push('EditProfilePage', {existingProfile: this.existingProfile});
   }
 
+  signOut(){
+    this.auth.signOut();
+    this.navCtrl.setRoot('LoginPage');
+  }
 }

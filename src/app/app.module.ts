@@ -1,3 +1,4 @@
+import { ChatService } from './../providers/chat.service';
 import { DataService } from './../providers/data.service';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule} from 'angularfire2/database';
@@ -13,7 +14,6 @@ import { AngularFireModule} from 'angularfire2';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { FormsModule } from "@angular/forms";
-
 
 @NgModule({
   declarations: [
@@ -38,7 +38,8 @@ import { FormsModule } from "@angular/forms";
     AuthService,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    DataService
+    DataService,
+    ChatService
   ]
 })
 export class AppModule {}

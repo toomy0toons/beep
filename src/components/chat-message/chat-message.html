@@ -1,0 +1,17 @@
+<ion-item *ngIf="chatIndex %2 === 0; else right">
+  <ion-avatar item-left>
+    <img src="assets/img/avatar.png" alt="">
+  </ion-avatar>
+  <h2>Tom LEe</h2>
+  <p>ppppp</p>
+</ion-item>
+
+<ng-template #right>
+  <ion-item class="chat-message__message-right">
+    <ion-avatar item-right>
+      <img src="assets/img/avatar.png" alt="">
+    </ion-avatar>
+    <h2>John</h2>
+    <p>m2</p>
+  </ion-item>
+</ng-template>
