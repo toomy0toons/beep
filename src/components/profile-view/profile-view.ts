@@ -2,7 +2,7 @@ import { User } from 'firebase/app';
 import { Profile } from './../../models/profile/profile';
 import { AuthService } from './../../providers/auth.service';
 import { DataService } from './../../providers/data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { LoadingController, Loading} from "ionic-angular";
 
 /**
@@ -20,6 +20,10 @@ export class ProfileViewComponent {
   text: string;
 
   loader: Loading;
+  
+  public userProfile: Profile;
+
+  @Output() existingProfile: EventEmitter<Profile>;
 
   constructor(private data: DataService, 
   private auth: AuthService, private loading: LoadingController) {
@@ -28,18 +32,17 @@ export class ProfileViewComponent {
     this.loader = this.loading.create({
       content: 'Loading profile...'
     });
+    this.existingProfile = new EventEmitter<Profile>();
   }
 
   //onInit is rplace for willload for compoenent, as navctrl never loads
 
-  userProfile: Profile;
   ngOnInit():void{
     this.loader.present();
     this.auth.getAuthenticatedUser().subscribe((user: User)=> {
       this.data.getProfile(user).subscribe((profile: Profile)=> {
         this.userProfile = profile;
-        console.log("userprofile");
-        console.log(this.userProfile);
+        this.existingProfile.emit(this.userProfile);
         this.loader.dismiss();
       })
     })

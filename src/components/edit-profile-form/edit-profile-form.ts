@@ -2,7 +2,7 @@ import { DataService } from './../../providers/data.service';
 import { User } from 'firebase/app';
 import { AuthService } from './../../providers/auth.service';
 import { Profile } from './../../models/profile/profile';
-import { Component, OnDestroy, EventEmitter, Output } from '@angular/core';
+import { Component, OnDestroy, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { Subscription } from "rxjs/Subscription";
 
 /**
@@ -15,13 +15,13 @@ import { Subscription } from "rxjs/Subscription";
   selector: 'edit-profile-form',
   templateUrl: 'edit-profile-form.html'
 })
-export class EditProfileFormComponent implements OnDestroy {
+export class EditProfileFormComponent implements OnInit, OnDestroy {
 
   text: string;
 
   private authenticatedUser$: Subscription;
   private authenticatedUser: User;
-  profile = {} as Profile;
+  @Input() profile: Profile;
 
   @Output() saveProfileResult = new EventEmitter<Boolean>();
 
@@ -40,6 +40,12 @@ export class EditProfileFormComponent implements OnDestroy {
 
   ngOnDestroy(): void{
     this.authenticatedUser$.unsubscribe();
+  }
+
+  ngOnInit(): void {
+    if (!this.profile){
+      this.profile = {} as Profile;
+    }
   }
   
 
