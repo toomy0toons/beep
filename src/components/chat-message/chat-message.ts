@@ -14,12 +14,10 @@ import { Message } from "../../models/messages/messages";
 export class ChatMessageComponent {
 
   @Input() chatMessage: Message
-  @Input() chatIndex: number
-  text: string;
+
+  @Input() userId: string
 
   constructor() {
-    console.log('Hello ChatMessageComponent Component');
-    this.text = 'Hello World';
   }
 
 }
