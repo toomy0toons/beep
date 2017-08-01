@@ -2,7 +2,7 @@ import { Profile } from './../models/profile/profile';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { AngularFireDatabase, FirebaseObjectObservable} from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
 import {User} from 'firebase/app'; 
 import "rxjs/add/operator/take";
 
@@ -16,8 +16,20 @@ import "rxjs/add/operator/take";
 export class DataService {
 
   profileObject: FirebaseObjectObservable<Profile>
+  profileList: FirebaseListObservable<Profile>
 
   constructor(private database: AngularFireDatabase) {
+  }
+
+  searchUser(firstName: string){
+    const query = this.database.list('/profiles', {
+      query: {
+        orderByChild: 'firstName',
+        equalTo: firstName
+      }
+    })
+
+    return query.take(1);
   }
 
   getProfile(user: User){
