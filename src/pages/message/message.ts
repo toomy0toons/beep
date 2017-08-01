@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Profile } from "../../models/profile/profile";
 
 /**
- * Generated class for the SearchUserPage page.
+ * Generated class for the MessagePage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
@@ -11,16 +11,20 @@ import { Profile } from "../../models/profile/profile";
 
 @IonicPage()
 @Component({
-  selector: 'page-search-user',
-  templateUrl: 'search-user.html',
+  selector: 'page-message',
+  templateUrl: 'message.html',
 })
-export class SearchUserPage {
+export class MessagePage {
+
+  selectedProfile: Profile
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  openChat(profile: Profile){
-    this.navCtrl.push('MessagePage', {profile});
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad MessagePage');
+    this.selectedProfile = this.navParams.get('profile');
+    console.log(this.selectedProfile);
   }
 
 }
