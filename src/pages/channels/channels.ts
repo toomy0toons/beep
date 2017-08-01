@@ -1,6 +1,10 @@
+import { ChannelChatPage } from './../channel-chat/channel-chat';
+import { Observable } from 'rxjs/Observable';
 import { ChatService } from './../../providers/chat.service';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { Channel } from "../../models/channel/channel.interface";
+import { FirebaseListObservable } from "angularfire2/database";
 
 /**
  * Generated class for the ChannelsPage page.
@@ -16,6 +20,8 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 })
 export class ChannelsPage {
 
+  channelList: FirebaseListObservable<Channel []>
+
   constructor(public navCtrl: NavController,
    public navParams: NavParams,
    private alertCntrl: AlertController,
@@ -26,6 +32,17 @@ export class ChannelsPage {
     console.log('ionViewDidLoad ChannelsPage');
   }
 
+  ionViewWillLoad(){
+    this.getChannels();
+  }
+
+  getChannels(){
+      this.channelList = this.chat.getChannelList()
+  } 
+
+  selectChannel(channel: Channel){
+    this.navCtrl.push('ChannelChatPage', {channel})
+  }
   showAddChannelDialog(){
     this.alertCntrl.create({
       title: 'Channel Name',
