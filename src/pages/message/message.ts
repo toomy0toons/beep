@@ -1,3 +1,6 @@
+import { Observable } from 'rxjs/Observable';
+import { ChatService } from './../../providers/chat.service';
+import { DataService } from './../../providers/data.service';
 import { AuthService } from './../../providers/auth.service';
 import { MESSAGE_LIST } from './../../mocks/messages/messages';
 import { Component } from '@angular/core';
@@ -22,20 +25,51 @@ export class MessagePage {
 
   userId: string
   selectedProfile: Profile
-  messageList: Message[]
+  messageList: Observable<Message[]>
+
+  userProfile: Profile;
 
   constructor(public navCtrl: NavController, 
+  private chat:ChatService,
   public navParams: NavParams,
-  private auth:AuthService) {
-    this.messageList = MESSAGE_LIST;
+  private auth:AuthService,
+  private data:DataService) {
+    
   }
 
   ionViewWillLoad() {
     console.log('ionViewDidLoad MessagePage');
     this.selectedProfile = this.navParams.get('profile');
-    this.auth.getAuthenticatedUser().subscribe(
-      auth => this.userId = auth.uid)
+    this.data.getAuthenticatedUserProfile()
+    .subscribe(profile=> {
+      this.userProfile = profile,
+      this.userId = profile.$key
+    });
     console.log(this.selectedProfile);
+
+    this.messageList = this.chat.getChat(this.selectedProfile.$key);
   }
 
+  async sendMessage(content: string){
+    try {
+      const message: Message = {
+        userToId: this.selectedProfile.$key,
+        userToProfile: {
+          firstName: this.selectedProfile.firstName,
+          lastName: this.selectedProfile.lastName
+        },
+        userFromProfile: {
+          firstName: this.userProfile.firstName,
+          lastName: this.userProfile.lastName
+        },
+        userFromId: this.userId,
+        content: content
+      }
+
+    await this.chat.sendChat(message);
+    }
+    catch (e){
+      console.error(e);
+    }
+  }
 }
