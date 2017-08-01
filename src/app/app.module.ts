@@ -12,7 +12,7 @@ import { AngularFireModule} from 'angularfire2';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { FormsModule } from "@angular/forms/forms";
+import { FormsModule } from "@angular/forms";
 
 
 @NgModule({

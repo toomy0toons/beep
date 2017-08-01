@@ -32,8 +32,9 @@ export class LoginPage {
       }).present();
 
       this.data.getProfile(<User>event.result).subscribe(profile => {
-        console.log(profile);
-        profile ? this.navCtrl.setRoot('TabsPage') : this.navCtrl.setRoot('EditProfilePage'); 
+        console.log("profile.value");
+        console.log(profile.email);
+        profile.email ? this.navCtrl.setRoot('TabsPage') : this.navCtrl.setRoot('EditProfilePage'); 
       })
     }
     else{

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the ChannelsPage page.
+ * Generated class for the SearchUserPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
@@ -10,16 +10,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-channels',
-  templateUrl: 'channels.html',
+  selector: 'page-search-user',
+  templateUrl: 'search-user.html',
 })
-export class ChannelsPage {
+export class SearchUserPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ChannelsPage');
+    console.log('ionViewDidLoad SearchUserPage');
   }
 
 }
